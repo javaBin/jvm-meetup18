@@ -9,10 +9,10 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
     libraryDependencies ++= Seq(
       "org.scala-lang" % "scala-reflect" % scalaVersion.value % "provided",
       "com.lihaoyi"    %%% "fansi"       % "0.2.5",
-      "org.typelevel"  %%% "cats-core"   % "1.0.1",
       "org.scalatest"  %%% "scalatest"   % "3.0.4" % Test
     ),
     scalaVersion := "2.12.4",
+    /* Scala comes with an optimizer, so we use that to get some free performance. */
     scalacOptions ++=
       Seq(
         "-deprecation",
@@ -32,7 +32,8 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
       "org.scala-js" %%% "scalajs-dom" % "0.9.2"
     ),
     scalaJSUseMainModuleInitializer := true,
-    scalaJSStage in Compile         := FullOpt
+    /* `FullOpt` means to optimize java with google closure compiler */
+    scalaJSStage in Compile := FullOpt
   )
 
 lazy val coreJvm = core.jvm

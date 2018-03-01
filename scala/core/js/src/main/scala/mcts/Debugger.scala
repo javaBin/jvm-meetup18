@@ -38,11 +38,11 @@ object Debugger {
     /* Capture nodes at every step of the simulation so we can render them. */
     object CapturingRunner extends Runner {
       type N = Node[TicTacToeState, Index]
-      val base = Runner(1000.millis, 10000)
+      val base = Runner(100.millis, 100)
 
       val nodeHistory = mutable.ArrayBuffer.empty[N]
 
-      override def apply[S, A](
+      override def apply[S,  A](
           initial: Node[S, A]
       )(iter:      Node[S, A] => Node[S, A]): Node[S, A] = {
         // yeah, this *is* a hack.
